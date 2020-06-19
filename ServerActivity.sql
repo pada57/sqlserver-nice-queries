@@ -29,11 +29,9 @@ FROM
 WHERE
 	S.session_id IN (SELECT blocking_session_id FROM sys.dm_exec_requests WHERE blocking_session_id IS NOT NULL)
 
+	--KILL 82
+
+	--	)DELETE FROM IpRight WHERE IpRightId IN (SELECT @Ids WHERE 1 = 0
 
 
---	)SELECT COUNT(*) FROM (SELECT rm.[Id]                      ,rm.[Title]                      ,rm.[UniqueCaseKey]                      ,rm.[IpType]                      ,rm.[CustomerId]                      ,rm.[CustomerName]                      ,rm.[RegisteredOwnerNames]                      ,rm.[Country]                      ,rm.[MainNumber]                      ,rm.[ApplicationNumber]                      ,rm.[ApplicationDate]                      ,rm.[PublicationNumber]                      ,rm.[PublicationDate]                      ,rm.[GrantRegistrationNumber]                      ,rm.[GrantRegistrationDate]                      ,rm.[PriorityNumber]                      ,rm.[PriorityDate]                      ,rm.[PCTApplicationNumber]                      ,rm.[PCTApplicationDate]                      ,rm.[ExpiryDate]                      ,rm.[OverriddenExpiryDate]                      ,rm.[NumberOfClaims]                      ,rm.[ParentId]                      ,rm.[CountryId]                      ,rm.[IpOrigin]                      ,rm.[IpMainTypeInternalCode]                      ,rm.[IpStatus]                      ,rm.[DennemeyerOfficeId]                      ,rm.[IpRightFamilyId]                      ,rm.[ClientInfo]                      ,rm.[DueDate]                      ,rm.[HasMaintenanceAction]                      ,rm.[IsActive]                      ,rm.[ValidatedStatesReceived]                      ,CASE WHEN x.IpRightId IS NULL THEN 0 ELSE 1 END HasClientInfo                      ,CASE WHEN rm.PayeeType = 'Agent' THEN rm.[PaymentName] ELSE '' END AgentName                      ,rm.[DataCheckStatus]                      ,rm.[LastCheckDate]                      ,rm.[RecheckDate]                      FROM ReadModel_IpRightList rm                           LEFT JOIN                           (                              SELECT ib.IpRightId FROM V_IpRight_ActiveBillingInfo ib INNER JOIN Customer c ON c.CustomerId = ib.CompanyId                               WHERE (1=1)                              GROUP BY ib.IpRightId                          ) x ON rm.Id = x.IpRightId) AS X WHERE ((IsActive IN (@IsActive1))
- --UPDATE ipmap    SET ipmap.Recalculate = 1    FROM CountryLawConfigIpRightMap ipmap     WHERE ipmap.CountryLawConfigId = @i
- --SELECT DISTINCT re.RecipientId                               ,re.RecipientType                               ,re.DnCronExpression AS CronExpression                               ,re.DnBillingPeriod AS BillingPeriod                               ,re.DnCaseDue AS CaseDue                                  ,rm.DnProducedUpTo as DnProducedUpTo                              FROM V_Recipients re                           LEFT JOIN ReadModel_CustomerList rm ON rm.Id = re.RecipientId                               WHERE RecipientAddressTypeInternalCode = 'DebitNote'                               AND RecipientType <> 'Division
-
- 
-				
+	  
