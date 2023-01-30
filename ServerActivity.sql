@@ -1,5 +1,7 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 
+DECLARE @DbName NVARCHAR(20) = 'IPCL_QA' --''
+
 SELECT
 	S.session_id, S.status ses_status, R.status req_status,
 	CONVERT(NVARCHAR(12), R.start_time, 108) last_start, CONVERT(NVARCHAR(12), GETDATE() - R.start_time, 108) run_time,
@@ -14,6 +16,7 @@ FROM
 WHERE
 	S.session_id <> @@spid
 	AND S.is_user_process = 1
+	and (ISNULL(@DbName,'') = '' OR ISNULL(d.name, '') = @DbName)
 UNION 
 SELECT
 	S.session_id, S.status ses_status, R.status req_status,
@@ -28,10 +31,9 @@ FROM
 	OUTER APPLY sys.dm_exec_sql_text(R.sql_handle) T
 WHERE
 	S.session_id IN (SELECT blocking_session_id FROM sys.dm_exec_requests WHERE blocking_session_id IS NOT NULL)
+	and (ISNULL(@DbName,'') = '' OR ISNULL(d.name, '') = @DbName)
 
-	--KILL 82
-
-	--	)DELETE FROM IpRight WHERE IpRightId IN (SELECT @Ids WHERE 1 = 0
+	--KILL 58 WITH STATUSONLY; 
 
 
-	  
+	--sp_who2
